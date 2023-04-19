@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to CodeIgniter 4!</title>
+    <meta name="description" content="The small framework with powerful features">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script-->
+    <!--script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script-->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- CSS -->
+    <!--link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/-->
+    <!-- Default theme -->
+    <!--link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/-->
+</head>
+<body>
+    <header>
+    </header> 
+    <h1>Fuera de Vue</h1>
+    <div id="app">        
+      <div class="container mt-3">
+        <p>{{message}}</p>
+        <button v-for="button in cards"  :id="'btn'+button.id.slice(4)" @click="showDiv" class="btn btn-secondary m-1">{{"Toggle Card "+button.id.slice(4)}}</button>
+        <div class="row">       
+          <div v-for="(card, index) in cards" :key="card.id" :id="card.id" v-show="card.visible" class="card border-secondary m-3" style="max-width: 18rem;">
+            <div class="card-header">{{card.text}}</div>
+            <div class="card-body">
+              <h4 class="card-title">Carta {{card.id}}</h4>
+              <p class="card-text">{{card.id}} Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>         
+        </div>
+      </div>
+    </div>
+
+
+<!-- -->
+</body>
+<script>
+  const { createApp } = Vue
+
+  createApp({
+    data() {
+      return {
+        message: 'Bienvenidos a la aventura!',
+        cards: [
+          {id:"card1",text:'Carta 1',visible: false},
+          {id:"card2",text:'Carta 2',visible: false},
+          {id:"card3",text:'Carta 3',visible: false},
+          {id:"card4",text:'Carta 4',visible: false},
+          {id:"card5",text:'Carta 5',visible: false},
+          {id:"card6",text:'Carta 6',visible: false},
+          {id:"card7",text:'Carta 7',visible: false},
+        ]        
+      }
+    },
+    methods:{
+      showDiv(event){
+        const cardId = 'card'+event.target.id.slice(3); // Creamos el cardid a partir del btnid 
+        const card = this.cards.find(c => c.id === cardId); // se busca el cardid dentro de array cards
+        card.visible = !card.visible; // ya encontrado el cardid se le cambia el valor visible por lo contrario que contiene
+      }
+    }
+  }).mount('#app')
+</script>
+</html>
